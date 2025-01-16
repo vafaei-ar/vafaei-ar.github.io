@@ -3,75 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alireza Vafaei Sadr - Data Scientist & Researcher</title>
+    <title>Alireza Vafaei Sadr - Data Scientist & AI Researcher</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1, h2 { color: #2c3e50; }
-        .profile-image { width: 200px; border-radius: 50%; float: right; margin: 0 0 20px 20px; }
-        .section { margin-bottom: 30px; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .profile-image {
+            width: 200px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #4a4a4a;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #667eea;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #667eea;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid #667eea;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #667eea;
+        }
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid #667eea;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #667eea transparent transparent;
+        }
+        .right::after {
+            left: -16px;
+        }
+        .content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
     <header>
         <img src="profile-image.jpg" alt="Alireza Vafaei Sadr" class="profile-image">
-        <h1>Alireza Vafaei Sadr</h1>
-        <p>Senior Postdoc / Data Scientist</p>
-        <p>📧 asadr@pennstatehealth.psu.edu | 📞 +1-717-9828590 | 📍 Hershey, USA</p>
-        <p>
-            <a href="https://www.linkedin.com/in/alireza-vafaei-sadr">LinkedIn</a> |
-            <a href="https://github.com/vafaei-ar">GitHub</a>
-        </p>
+        <h1>Alireza Vafaei Sadr, Ph.D.</h1>
+        <p>Senior Postdoc / Data Scientist | AI Researcher</p>
     </header>
 
-    <section class="section">
-        <h2>About Me</h2>
-        <p>Accomplished data scientist with a Ph.D. in Physics, specializing in applying cutting-edge machine learning techniques to drive innovation in health-tech and other industries. Extensive experience in developing scalable AI solutions, including federated learning, sustainable AI models, and deep learning applications in different healthcare sectors. Adept at leading interdisciplinary teams and mentoring students, with a proven track record of delivering impactful, data-driven solutions. Passionate about leveraging AI to solve real-world problems and committed to advancing AI sustainability and trustworthiness in healthcare and beyond.</p>
-    </section>
+    <div class="container">
+        <section class="section">
+            <h2>About Me</h2>
+            <p>Accomplished data scientist with a Ph.D. in Physics, specializing in cutting-edge machine learning techniques for health-tech and other industries. Expert in federated learning, sustainable AI models, and deep learning applications in healthcare. Passionate about leveraging AI to solve real-world problems and advancing AI sustainability and trustworthiness.</p>
+        </section>
 
-    <section class="section">
-        <h2>Experience</h2>
-        <h3>Senior Postdoc/Data Scientist | Penn State, College of Medicine</h3>
-        <p>06-2023 - Present | Hershey, PA, US</p>
-        <ul>
-            <li>Federated learning</li>
-            <li>Data imputation</li>
-            <li>AI sustainability</li>
-            <li>Language models</li>
-        </ul>
-        <!-- Add more experience entries here -->
-    </section>
+        <section class="section">
+            <h2>Expertise</h2>
+            <div class="skills">
+                <span class="skill-tag">Federated Learning</span>
+                <span class="skill-tag">Data Imputation</span>
+                <span class="skill-tag">AI Sustainability</span>
+                <span class="skill-tag">Language Models</span>
+                <span class="skill-tag">Deep Learning</span>
+                <span class="skill-tag">Digital Pathology</span>
+                <span class="skill-tag">Trustworthy AI</span>
+                <span class="skill-tag">Radio Astronomy</span>
+                <span class="skill-tag">Cosmological Parameter Estimation</span>
+                <span class="skill-tag">Anomaly Detection</span>
+                <span class="skill-tag">Medical Imaging</span>
+            </div>
+        </section>
 
-    <section class="section">
-        <h2>Education</h2>
-        <h3>Ph.D. - Physics | Shahid Beheshti University</h3>
-        <p>2013 - 2018 | Tehran, Iran</p>
-        <!-- Add more education entries here -->
-    </section>
+        <section class="section">
+            <h2>Key Projects</h2>
+            <ul>
+                <li><strong>Federated Learning Framework:</strong> Developed a system for distributed machine learning across healthcare institutions, preserving data privacy.</li>
+                <li><strong>AI Sustainability Toolkit:</strong> Created tools for measuring and optimizing AI models' environmental impact, focusing on energy efficiency.</li>
+                <li><strong>Medical Image Analysis:</strong> Implemented deep learning models for digital pathology, including tissue classification and anomaly detection.</li>
+                <li><strong>Radio Astronomy Data Processing:</strong> Contributed to the HIRAX project with algorithms for cosmological parameter estimation and interference mitigation.</li>
+                <li><strong>SKA Source Detection:</strong> Developed machine learning techniques for identifying astronomical sources in radio telescope data.</li>
+                <li><strong>EHR Data Imputation:</strong> Designed algorithms for imputing missing data in electronic health records.</li>
+                <li><strong>ECG Analysis:</strong> Contributed to an AI-assisted decision support system for ECG interpretation.</li>
+            </ul>
+        </section>
+        
 
-    <section class="section">
-        <h2>Skills</h2>
-        <ul>
-            <li>Quick learner</li>
-            <li>Teamwork</li>
-            <li>Research and analysis</li>
-            <li>Critical thinking</li>
-            <li>Conflict resolution</li>
-            <li>Project supervision</li>
-            <li>Independence</li>
-            <li>Teaching</li>
-        </ul>
-    </section>
+        <section class="section">
+            <h2>Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h3>Senior Postdoc/Data Scientist</h3>
+                        <p>Penn State, College of Medicine</p>
+                        <p>06-2023 - Present | Hershey, PA, US</p>
+                        <ul>
+                            <li>Federated learning research</li>
+                            <li>AI sustainability initiatives</li>
+                            <li>Language model development</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h3>Postdoc/Data Scientist</h3>
+                        <p>Uniklinik RWTH Aachen</p>
+                        <p>12-2021 - 06-2023 | Aachen, Germany</p>
+                        <ul>
+                            <li>Deep learning in digital pathology</li>
+                            <li>Sustainable machine learning research</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h3>Postdoc</h3>
+                        <p>Université de Genève</p>
+                        <p>09-2020 - 01-2022 | Geneva, Switzerland</p>
+                        <ul>
+                            <li>Data science in radio astronomy</li>
+                            <li>Health records imputation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h3>Postdoc</h3>
+                        <p>Institute for Research in Fundamental Sciences</p>
+                        <p>09-2018 - 09-2020 | Tehran, Iran</p>
+                        <ul>
+                            <li>Co-supervised 9 master and PhD students in cosmology and medical physics</li>
+                            <li>Collaborated with SKA data science team</li>
+                            <li>Coordinated and taught in IPM data science workshop series</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h3>Co-founder/AI supervisor</h3>
+                        <p>Almedic</p>
+                        <p>05-2017 - 10-2020 | Tehran, Iran</p>
+                        <ul>
+                            <li>Initiated AI teams in Almedic startup studio</li>
+                            <li>Supervised data science projects on medical decision support systems</li>
+                            <li>Created a medical data science course for Maktabkhooneh</li>
+                        </ul>
+                    </div>
+                </div>                
+            </div>
+        </section>
 
-    <section class="section">
-        <h2>Languages</h2>
-        <ul>
-            <li>Persian: Native</li>
-            <li>English: Fluent</li>
-        </ul>
-    </section>
+        <section class="section">
+            <h2>Education</h2>
+            <p><strong>Ph.D. in Physics</strong> - Shahid Beheshti University, Tehran, Iran (2013-2018)</p>
+            <p><strong>M.Sc. in Physics</strong> - Shahid Beheshti University, Tehran, Iran (2011-2013)</p>
+            <p><strong>B.Sc. in Physics</strong> - University of Science and Technology of Iran, Tehran, Iran (2006-2011)</p>
+        </section>        
 
-    <footer>
-        <p>© 2025 Alireza Vafaei Sadr. All rights reserved.</p>
-    </footer>
+        <section class="section">
+            <h2>Awards and Appointments</h2>
+            <h3>Awards and Grants</h3>
+            <ul>
+                <li>RWTH Uniklinik grant on Environmental consequences of AI implementation in pathology</li>
+                <li>European Union's Horizon 2020 research and innovation program funding</li>
+                <li>Excellence d'burcire, Université de Genève, 2016-2017</li>
+                <li>PhD scholarship, Ministry of Science, Research and Technology, 2013-2018</li>
+            </ul>
+            <h3>Appointments</h3>
+            <ul>
+                <li>Université de Genève, 2020, Genève, Switzerland</li>
+                <li>ICTP & SISSA, 2020, Trieste, Italy</li>
+                <li>Max Planck Institute, 2019-2020, Munich, Germany</li>
+                <li>South African Radio Astronomy Observatory (SARAO), 2018, Cape Town, South Africa</li>
+                <li>African Institute for Mathematical Sciences (AIMS), 2017, Cape Town, South Africa</li>
+                <li>Université de Genève, 2016-2017, Geneva, Switzerland</li>
+                <li>Université catholique de Louvain, 2015, Louvain, Belgium</li>
+                <li>Department of High Energy Physics, ICTP, 2015, Trieste, Italy</li>
+            </ul>
+        </section>        
+
+        <section class="section">
+            <h2>Contact</h2>
+            <p>📧 asadr@pennstatehealth.psu.edu</p>
+            <p>📞 +1-717-9828590</p>
+            <p>📍 Hershey, USA</p>
+            <p>
+                <a href="https://www.linkedin.com/in/alireza-vafaei-sadr">LinkedIn</a> |
+                <a href="https://github.com/vafaei-ar">GitHub</a>
+            </p>
+        </section>
+    </div>
 </body>
 </html>
