@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
     <header>
         <h1>Welcome to Alireza Vafaei Sadr's Personal Page!</h1>
     </header>
 
     <section>
         <h2>About Me</h2>
+        <img src="image.jpg" alt="Alireza Vafaei Sadr" class="profile-image">
         <p>Hello! I am Alireza Vafaei Sadr. I love Kabab, enjoy listening to music, and my favorite color is blue.</p>
     </section>
 
@@ -25,8 +29,38 @@
         </ul>
     </section>
 
+    <section>
+        <h2>Listen to My Favorite Song</h2>
+        <audio controls autoplay loop>
+            <source src="song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
     <footer>
         <p>&copy; 2023 Alireza Vafaei Sadr</p>
     </footer>
+
+    <!-- Particles.js Script -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#0074D9" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: false, anim: { enable: false } },
+                size: { value: 3, random: true, anim: { enable: false } },
+                line_linked: { enable: true, distance: 150, color: "#0074D9", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
 </html>
