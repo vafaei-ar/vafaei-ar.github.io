@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Snake Game</title>
   <style>
     body {
@@ -14,11 +15,18 @@
     h1 {
       margin: 20px 0;
     }
+    #score {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
     canvas {
       border: 1px solid #fff;
-      display: block;
-      margin: 20px auto;
       background: #111;
+      display: block;
+      margin: 0 auto;
+    }
+    #options {
+      margin: 10px;
     }
   </style>
 </head>
@@ -27,27 +35,34 @@
   <p>
     <a href="https://vafaei-ar.github.io/">Home</a>
   </p> 
+  <div id="options">
+    <label>
+      <input type="checkbox" id="wrapMode">
+      Enable Wrap-around (off = game over on wall hit)
+    </label>
+  </div>
+  <div id="score">Score: 0</div>
   <canvas id="snake" width="400" height="400"></canvas>
   <script>
     const canvas = document.getElementById('snake');
     const context = canvas.getContext('2d');
+    const scoreElement = document.getElementById('score');
+    const wrapCheckbox = document.getElementById('wrapMode');
 
-    const box = 20; // size of a square in pixels
+    const box = 20; // size of one grid cell in pixels
 
-    // Snake starts at the center of the board
-    let snake = [{ x: 9 * box, y: 9 * box }];
+    let snake = [{ x: 9 * box, y: 9 * box }];  // start position
     let direction = null;
+    let score = 0;
 
-    // Place food at a random position on the grid
+    // Randomly position food on a 20x20 grid
     let food = {
       x: Math.floor(Math.random() * 20) * box,
       y: Math.floor(Math.random() * 20) * box
     };
 
     // Listen for arrow key presses to change direction
-    document.addEventListener('keydown', setDirection);
-
-    function setDirection(event) {
+    document.addEventListener('keydown', function(event) {
       if (event.keyCode === 37 && direction !== 'RIGHT') {
         direction = 'LEFT';
       } else if (event.keyCode === 38 && direction !== 'DOWN') {
@@ -57,76 +72,101 @@
       } else if (event.keyCode === 40 && direction !== 'UP') {
         direction = 'DOWN';
       }
-    }
+    });
 
-    // Draw the game board, snake, and food
+    // Draw everything (background, snake, food)
     function draw() {
+      // Draw the background
       context.fillStyle = '#000';
       context.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the snake
+      // Draw the snake: head in green and body in white
       for (let i = 0; i < snake.length; i++) {
-        context.fillStyle = (i === 0) ? '#0f0' : '#fff';
+        context.fillStyle = i === 0 ? '#0f0' : '#fff';
         context.fillRect(snake[i].x, snake[i].y, box, box);
       }
 
-      // Draw the food
+      // Draw the food in red
       context.fillStyle = 'red';
       context.fillRect(food.x, food.y, box, box);
     }
 
-    // Update game state (moving the snake, collision detection, etc.)
-    function update() {
-      let headX = snake[0].x;
-      let headY = snake[0].y;
-
-      if (direction === 'LEFT') headX -= box;
-      if (direction === 'UP') headY -= box;
-      if (direction === 'RIGHT') headX += box;
-      if (direction === 'DOWN') headY += box;
-
-      // Check if the snake eats the food
-      if (headX === food.x && headY === food.y) {
-        food = {
-          x: Math.floor(Math.random() * 20) * box,
-          y: Math.floor(Math.random() * 20) * box
-        };
-      } else {
-        snake.pop(); // remove tail segment if no food eaten
-      }
-
-      const newHead = { x: headX, y: headY };
-
-      // Check collision with walls or self
-      if (
-        headX < 0 || headY < 0 ||
-        headX >= canvas.width || headY >= canvas.height ||
-        collision(newHead, snake)
-      ) {
-        clearInterval(game);
-        alert("Game Over!");
-        return;
-      }
-
-      snake.unshift(newHead);
-    }
-
-    // Check if the snake's head collides with its body
-    function collision(head, array) {
+    // Check for collisions with the snake's body
+    function collision(newHead, array) {
       for (let i = 0; i < array.length; i++) {
-        if (head.x === array[i].x && head.y === array[i].y) {
+        if (newHead.x === array[i].x && newHead.y === array[i].y) {
           return true;
         }
       }
       return false;
     }
 
+    // Update score display
+    function updateScore() {
+      scoreElement.innerText = 'Score: ' + score;
+    }
+
+    // Game update function: moves snake, checks for food or collision
+    function update() {
+      let headX = snake[0].x;
+      let headY = snake[0].y;
+
+      // Update head position based on direction
+      if (direction === 'LEFT') headX -= box;
+      if (direction === 'UP') headY -= box;
+      if (direction === 'RIGHT') headX += box;
+      if (direction === 'DOWN') headY += box;
+
+      // Check collision with canvas walls
+      if (wrapCheckbox.checked) {
+        // If wrap-around is enabled, adjust head position to appear on opposite side
+        if (headX < 0) headX = canvas.width - box;
+        if (headX >= canvas.width) headX = 0;
+        if (headY < 0) headY = canvas.height - box;
+        if (headY >= canvas.height) headY = 0;
+      } else {
+        // Otherwise, hitting a wall ends the game
+        if (headX < 0 || headY < 0 || headX >= canvas.width || headY >= canvas.height) {
+          clearInterval(game);
+          alert("Game Over!");
+          return;
+        }
+      }
+
+      // Check if the snake eats the food
+      if (headX === food.x && headY === food.y) {
+        score++; // Increase score when food is eaten
+        // Reposition the food randomly
+        food = {
+          x: Math.floor(Math.random() * 20) * box,
+          y: Math.floor(Math.random() * 20) * box
+        };
+      } else {
+        // Remove the tail if no food has been eaten (snake moves forward)
+        snake.pop();
+      }
+
+      const newHead = { x: headX, y: headY };
+
+      // Check collision with snake's own body
+      if (collision(newHead, snake)) {
+        clearInterval(game);
+        alert("Game Over!");
+        return;
+      }
+
+      // Add new head to the snake body array
+      snake.unshift(newHead);
+      updateScore(); // update score display
+    }
+
+    // Main game loop
     function gameLoop() {
       update();
       draw();
     }
 
-    // Repeat the game loop every 100 milliseconds
+    // Start the game loop: refresh every 100 ms
     let game = setInterval(gameLoop, 100);
   </script>
 </body>
