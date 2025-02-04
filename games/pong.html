@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pong Game</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #scoreboard {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    canvas {
+      background: #222;
+      display: block;
+      margin: 0 auto;
+      border: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pong Game</h1>
+  <p>
+    <a href="https://vafaei-ar.github.io/">Home</a>
+  </p> 
+  <div id="scoreboard">Player: 0 - Computer: 0</div>
+  <canvas id="pongCanvas" width="600" height="400"></canvas>
+  
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById('pongCanvas');
+    const context = canvas.getContext('2d');
+
+    // Define paddle dimensions and positions
+    const paddleWidth = 10, paddleHeight = 80;
+    let playerY = (canvas.height - paddleHeight) / 2;
+    let compY = (canvas.height - paddleHeight) / 2;
+    const paddleSpeed = 6;
+
+    // Define ball properties
+    let ballX = canvas.width / 2, ballY = canvas.height / 2;
+    const ballRadius = 7;
+    let ballSpeedX = 4, ballSpeedY = 3;
+
+    // Scores
+    let playerScore = 0, compScore = 0;
+
+    // Draw rectangle helper
+    function drawRect(x, y, w, h, color) {
+      context.fillStyle = color;
+      context.fillRect(x, y, w, h);
+    }
+
+    // Draw circle (ball) helper
+    function drawCircle(x, y, r, color) {
+      context.fillStyle = color;
+      context.beginPath();
+      context.arc(x, y, r, 0, Math.PI * 2, false);
+      context.closePath();
+      context.fill();
+    }
+
+    // Draw the net in the center
+    function drawNet() {
+      const netWidth = 2, netHeight = 10;
+      for (let i = 0; i < canvas.height; i += netHeight * 2) {
+        drawRect(canvas.width / 2 - netWidth / 2, i, netWidth, netHeight, 'white');
+      }
+    }
+
+    // Draw all game objects
+    function draw() {
+      // Clear canvas
+      drawRect(0, 0, canvas.width, canvas.height, '#222');
+
+      // Draw center net
+      drawNet();
+
+      // Draw the player's paddle (left side)
+      drawRect(0, playerY, paddleWidth, paddleHeight, 'white');
+
+      // Draw the computer's paddle (right side)
+      drawRect(canvas.width - paddleWidth, compY, paddleWidth, paddleHeight, 'white');
+
+      // Draw the ball
+      drawCircle(ballX, ballY, ballRadius, 'white');
+    }
+
+    // Keyboard controls for player's paddle
+    let upPressed = false;
+    let downPressed = false;
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowUp') upPressed = true;
+      else if (e.key === 'ArrowDown') downPressed = true;
+    });
+    document.addEventListener('keyup', function(e) {
+      if (e.key === 'ArrowUp') upPressed = false;
+      else if (e.key === 'ArrowDown') downPressed = false;
+    });
+
+    // Update game logic every frame
+    function update() {
+      // Move player's paddle if key is pressed
+      if (upPressed && playerY > 0) playerY -= paddleSpeed;
+      if (downPressed && playerY < canvas.height - paddleHeight) playerY += paddleSpeed;
+
+      // Simple AI for the computer's paddle:
+      let compPaddleCenter = compY + paddleHeight / 2;
+      if (compPaddleCenter < ballY - 35) compY += paddleSpeed;
+      else if (compPaddleCenter > ballY + 35) compY -= paddleSpeed;
+
+      // Update ball position
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // Bounce off the top and bottom walls
+      if (ballY - ballRadius < 0 || ballY + ballRadius > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+      }
+
+      // Check if the ball goes off the left side (missed by player)
+      if (ballX - ballRadius < 0) {
+        compScore++;
+        resetBall();
+      }
+      // Check if the ball goes off the right side (missed by computer)
+      if (ballX + ballRadius > canvas.width) {
+        playerScore++;
+        resetBall();
+      }
+
+      // Ball collision with player's paddle
+      if (ballX - ballRadius < paddleWidth) {
+        if (ballY > playerY && ballY < playerY + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+          let deltaY = ballY - (playerY + paddleHeight / 2);
+          ballSpeedY = deltaY * 0.3;
+        }
+      }
+
+      // Ball collision with computer's paddle
+      if (ballX + ballRadius > canvas.width - paddleWidth) {
+        if (ballY > compY && ballY < compY + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+          let deltaY = ballY - (compY + paddleHeight / 2);
+          ballSpeedY = deltaY * 0.3;
+        }
+      }
+
+      // Update the scoreboard display
+      document.getElementById('scoreboard').innerText = 
+        "Player: " + playerScore + " - Computer: " + compScore;
+    }
+
+    // Reset ball back to the center after a score
+    function resetBall() {
+      ballX = canvas.width / 2;
+      ballY = canvas.height / 2;
+      ballSpeedX = -ballSpeedX;
+      ballSpeedY = 3;
+    }
+
+    // Game loop that updates and redraws game objects
+    function gameLoop() {
+      update();
+      draw();
+    }
+
+    // Run gameLoop() 60 times per second
+    setInterval(gameLoop, 1000 / 60);
+  </script>
+</body>
+</html>

@@ -15,7 +15,7 @@
     h1 {
       margin: 20px 0;
     }
-    #score {
+    #scoreboard {
       font-size: 20px;
       margin-bottom: 10px;
     }
@@ -28,6 +28,10 @@
     #options {
       margin: 10px;
     }
+    button, input {
+      margin: 5px;
+      padding: 5px 10px;
+    }
   </style>
 </head>
 <body>
@@ -38,136 +42,221 @@
   <div id="options">
     <label>
       <input type="checkbox" id="wrapMode">
-      Enable Wrap-around (off = game over on wall hit)
+      Enable Wrap-around (unchecked = game over on wall hit)
     </label>
+    <br>
+    <label>
+      Speed (ms): 
+      <input type="number" id="speedInput" value="100" min="50" max="500">
+    </label>
+    <br>
+    <button id="startGame">Start Game</button>
+    <button id="pauseGame">Pause</button>
   </div>
-  <div id="score">Score: 0</div>
+  <div id="scoreboard">
+    Score: <span id="score">0</span> |
+    High Score: <span id="highScore">0</span>
+  </div>
   <canvas id="snake" width="400" height="400"></canvas>
+  
   <script>
+    // Basic DOM references & game global variables
     const canvas = document.getElementById('snake');
     const context = canvas.getContext('2d');
-    const scoreElement = document.getElementById('score');
+    const scoreEl = document.getElementById('score');
+    const highScoreEl = document.getElementById('highScore');
     const wrapCheckbox = document.getElementById('wrapMode');
+    const speedInput = document.getElementById('speedInput');
+    const startButton = document.getElementById('startGame');
+    const pauseButton = document.getElementById('pauseGame');
+    
+    const box = 20; // Grid cell size
+    
+    let snake, direction, food, bonusFood, score, gameInterval, gameSpeed, paused = false;
+    let bonusTimer = 0; // timer for bonus food appearance
 
-    const box = 20; // size of one grid cell in pixels
-
-    let snake = [{ x: 9 * box, y: 9 * box }];  // start position
-    let direction = null;
-    let score = 0;
-
-    // Randomly position food on a 20x20 grid
-    let food = {
-      x: Math.floor(Math.random() * 20) * box,
-      y: Math.floor(Math.random() * 20) * box
-    };
-
-    // Listen for arrow key presses to change direction
-    document.addEventListener('keydown', function(event) {
-      if (event.keyCode === 37 && direction !== 'RIGHT') {
-        direction = 'LEFT';
-      } else if (event.keyCode === 38 && direction !== 'DOWN') {
-        direction = 'UP';
-      } else if (event.keyCode === 39 && direction !== 'LEFT') {
-        direction = 'RIGHT';
-      } else if (event.keyCode === 40 && direction !== 'UP') {
-        direction = 'DOWN';
-      }
-    });
-
-    // Draw everything (background, snake, food)
+    // Sound effect: play when food is eaten.
+    const eatSound = new Audio('https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg');
+    
+    // High Score from localStorage (if available)
+    let highScore = localStorage.getItem('highScore') || 0;
+    highScoreEl.innerText = highScore;
+    
+    // Initialize snake position & food(s)
+    function initGame() {
+      snake = [{ x: 9 * box, y: 9 * box }];
+      direction = null;
+      score = 0;
+      updateScore();
+      // Set regular food in random location on grid
+      food = {
+        x: Math.floor(Math.random() * 20) * box,
+        y: Math.floor(Math.random() * 20) * box
+      };
+      bonusFood = null; // bonus food starts not on the board
+      bonusTimer = 0;
+    }
+    
+    // Draw grid, snake and food
     function draw() {
-      // Draw the background
       context.fillStyle = '#000';
       context.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw the snake: head in green and body in white
-      for (let i = 0; i < snake.length; i++) {
-        context.fillStyle = i === 0 ? '#0f0' : '#fff';
-        context.fillRect(snake[i].x, snake[i].y, box, box);
-      }
-
-      // Draw the food in red
+      
+      // Draw snake: head is green, rest is white
+      snake.forEach((segment, i) => {
+        context.fillStyle = (i === 0) ? '#0f0' : '#fff';
+        context.fillRect(segment.x, segment.y, box, box);
+      });
+      
+      // Draw normal food as red square
       context.fillStyle = 'red';
       context.fillRect(food.x, food.y, box, box);
-    }
-
-    // Check for collisions with the snake's body
-    function collision(newHead, array) {
-      for (let i = 0; i < array.length; i++) {
-        if (newHead.x === array[i].x && newHead.y === array[i].y) {
-          return true;
-        }
+      
+      // If bonus food exists, draw it as blue square
+      if (bonusFood) {
+        context.fillStyle = 'blue';
+        context.fillRect(bonusFood.x, bonusFood.y, box, box);
       }
-      return false;
     }
-
-    // Update score display
+    
+    // Collision detection: check if head hits body
+    function collision(head, array) {
+      return array.some(segment => head.x === segment.x && head.y === segment.y);
+    }
+    
+    // Update score and highscore display
     function updateScore() {
-      scoreElement.innerText = 'Score: ' + score;
+      scoreEl.innerText = score;
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+        highScoreEl.innerText = highScore;
+      }
     }
-
-    // Game update function: moves snake, checks for food or collision
+    
+    // Game logic update function
     function update() {
+      if (paused) return;
+      
       let headX = snake[0].x;
       let headY = snake[0].y;
-
-      // Update head position based on direction
+      
       if (direction === 'LEFT') headX -= box;
       if (direction === 'UP') headY -= box;
       if (direction === 'RIGHT') headX += box;
       if (direction === 'DOWN') headY += box;
-
-      // Check collision with canvas walls
+      
+      // Handle wall collisions or wrap-around
       if (wrapCheckbox.checked) {
-        // If wrap-around is enabled, adjust head position to appear on opposite side
         if (headX < 0) headX = canvas.width - box;
         if (headX >= canvas.width) headX = 0;
         if (headY < 0) headY = canvas.height - box;
         if (headY >= canvas.height) headY = 0;
       } else {
-        // Otherwise, hitting a wall ends the game
         if (headX < 0 || headY < 0 || headX >= canvas.width || headY >= canvas.height) {
-          clearInterval(game);
-          alert("Game Over!");
+          endGame();
           return;
         }
       }
-
-      // Check if the snake eats the food
+      
+      const newHead = { x: headX, y: headY };
+      
+      // If snake collides with itself, game over.
+      if (collision(newHead, snake)) {
+        endGame();
+        return;
+      }
+      
+      snake.unshift(newHead);
+      
+      // Check if regular food is eaten
       if (headX === food.x && headY === food.y) {
-        score++; // Increase score when food is eaten
-        // Reposition the food randomly
+        score++;
+        updateScore();
+        eatSound.currentTime = 0;
+        eatSound.play();
         food = {
           x: Math.floor(Math.random() * 20) * box,
           y: Math.floor(Math.random() * 20) * box
         };
-      } else {
-        // Remove the tail if no food has been eaten (snake moves forward)
+      } 
+      // Check if bonus food is eaten
+      else if (bonusFood && headX === bonusFood.x && headY === bonusFood.y) {
+        score += 5; // bonus score
+        updateScore();
+        eatSound.currentTime = 0;
+        eatSound.play();
+        bonusFood = null;
+        // Temporarily boost speed—for 5 rounds, then revert.
+        clearInterval(gameInterval);
+        gameSpeed = Math.max(50, gameSpeed - 20);
+        gameInterval = setInterval(gameLoop, gameSpeed);
+      } 
+      else {
+        // Snake moves forward normally: remove tail.
         snake.pop();
       }
-
-      const newHead = { x: headX, y: headY };
-
-      // Check collision with snake's own body
-      if (collision(newHead, snake)) {
-        clearInterval(game);
-        alert("Game Over!");
-        return;
+      
+      // Randomly spawn bonus food: every 10 updates chance.
+      bonusTimer++;
+      if (!bonusFood && bonusTimer > 10 && Math.random() < 0.1) {
+        bonusFood = {
+          x: Math.floor(Math.random() * 20) * box,
+          y: Math.floor(Math.random() * 20) * box
+        };
+        bonusTimer = 0;
       }
-
-      // Add new head to the snake body array
-      snake.unshift(newHead);
-      updateScore(); // update score display
     }
-
-    // Main game loop
+    
+    // End game and stop loop
+    function endGame() {
+      clearInterval(gameInterval);
+      alert('Game Over! Your score: ' + score);
+    }
+    
+    // Main game loop: update and draw
     function gameLoop() {
       update();
       draw();
     }
-
-    // Start the game loop: refresh every 100 ms
-    let game = setInterval(gameLoop, 100);
+    
+    // Event listener for arrow keys
+    document.addEventListener('keydown', e => {
+      // Prevent reverse direction move
+      if (e.keyCode === 37 && direction !== 'RIGHT') direction = 'LEFT';
+      else if (e.keyCode === 38 && direction !== 'DOWN') direction = 'UP';
+      else if (e.keyCode === 39 && direction !== 'LEFT') direction = 'RIGHT';
+      else if (e.keyCode === 40 && direction !== 'UP') direction = 'DOWN';
+      // Pause/Resume using spacebar (optional shortcut)
+      else if (e.keyCode === 32) togglePause();
+    });
+    
+    // Pause/resume functionality
+    function togglePause() {
+      paused = !paused;
+      pauseButton.innerText = paused ? 'Resume' : 'Pause';
+    }
+    
+    // Start button initializes and starts game loop using chosen speed value.
+    startButton.addEventListener('click', () => {
+      clearInterval(gameInterval);
+      gameSpeed = parseInt(speedInput.value);
+      if (isNaN(gameSpeed) || gameSpeed < parseInt(speedInput.min) || gameSpeed > parseInt(speedInput.max)) {
+        alert(`Please enter a valid speed between ${speedInput.min} and ${speedInput.max} ms.`);
+        return;
+      }
+      paused = false;
+      pauseButton.innerText = 'Pause';
+      initGame();
+      gameInterval = setInterval(gameLoop, gameSpeed);
+    });
+    
+    // Pause button toggles game pause/resume.
+    pauseButton.addEventListener('click', togglePause);
+    
+    // Initial drawing
+    draw();
+    
   </script>
 </body>
 </html>
