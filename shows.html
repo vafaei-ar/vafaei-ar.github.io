@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Favorite Movies & Series</title>
+  <p>
+    <a href="https://vafaei-ar.github.io/">Home</a>
+  </p> 
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    h1 { text-align: center; }
+    #movie-form { max-width: 600px; margin: 20px auto; }
+    #movie-form input, #movie-form textarea { display: block; width: 100%; padding: 10px; margin: 10px 0; }
+    #movie-list { max-width: 800px; margin: 20px auto; padding: 0; list-style: none; }
+    .movie-item { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+    .movie-item a { color: #0077cc; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>My Movies & Series</h1>
+  
+  <div id="movie-form">
+    <input type="text" id="movieTitle" placeholder="Movie/Series Title" required>
+    <input type="url" id="imdbLink" placeholder="IMDb URL (https://...)" required>
+    <textarea id="myOpinion" placeholder="Your opinion about it" rows="3" required></textarea>
+    <button id="addMovieBtn">Add to List</button>
+  </div>
+  
+  <ul id="movie-list">
+    <!-- New movies will be appended here -->
+  </ul>
+  
+  <script>
+    // Retrieve saved movies from localStorage
+    const movieList = JSON.parse(localStorage.getItem('movies')) || [];
+
+    // Function to render the list
+    function renderMovies() {
+      const listEl = document.getElementById('movie-list');
+      listEl.innerHTML = '';
+      movieList.forEach((movie, index) => {
+        const li = document.createElement('li');
+        li.className = 'movie-item';
+        li.innerHTML = `<strong>${movie.title}</strong> <br>
+                        <a href="${movie.url}" target="_blank">View on IMDb</a> <br>
+                        <em>${movie.opinion}</em>`;
+        listEl.appendChild(li);
+      });
+    }
+    
+    // Save movies to localStorage
+    function saveMovies() {
+      localStorage.setItem('movies', JSON.stringify(movieList));
+    }
+    
+    // Add event listener to the button
+    document.getElementById('addMovieBtn').addEventListener('click', function() {
+      const title = document.getElementById('movieTitle').value.trim();
+      const url = document.getElementById('imdbLink').value.trim();
+      const opinion = document.getElementById('myOpinion').value.trim();
+      
+      if (title && url && opinion) {
+        movieList.push({ title, url, opinion });
+        saveMovies();
+        renderMovies();
+        // Clear input fields
+        document.getElementById('movieTitle').value = '';
+        document.getElementById('imdbLink').value = '';
+        document.getElementById('myOpinion').value = '';
+      } else {
+        alert('Please fill out all fields.');
+      }
+    });
+    
+    // Initial render of movies
+    renderMovies();
+  </script>
+</body>
+</html>
