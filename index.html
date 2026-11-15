@@ -13,6 +13,8 @@
   <meta property="og:image" content="https://vafaei-ar.github.io/profile-image.jpg">
   <link rel="canonical" href="https://vafaei-ar.github.io/">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/showcase.css?v=20261115">
+  <script src="assets/research.js?v=20261115" defer></script>
   <title>Alireza Vafaei Sadr, PhD | Clinical AI Research</title>
   <script type="application/ld+json">
   {
@@ -43,6 +45,8 @@
       <nav class="site-nav" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
+        <a href="#results">Results</a>
+        <a href="#demo">Demo</a>
         <a href="#projects">Projects</a>
         <a href="#publications">Publications</a>
         <a href="#experience">Experience</a>
@@ -58,10 +62,10 @@
           <p class="eyebrow hero-eyebrow">Penn State College of Medicine</p>
           <h1 id="intro-title">Alireza Vafaei Sadr <span>PhD</span></h1>
           <p class="hero-role">Assistant Professor &middot; Public Health Sciences</p>
-          <p class="hero-lead">I develop and evaluate machine learning methods for real-world health data and clinical workflows.</p>
-          <p class="hero-detail">My work includes electronic health records, clinical prediction, patient-facing AI tools, and the reliability and environmental impact of machine learning.</p>
+          <p class="hero-lead">I develop and evaluate clinical AI for real-world healthcare.</p>
+          <p class="hero-detail">My research connects electronic health records, model reliability, patient-facing tools, and sustainable AI. Explore published results and working research prototypes.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#projects">Explore my work <span aria-hidden="true">&rarr;</span></a>
+            <a class="button button-primary" href="#results">See the research <span aria-hidden="true">&rarr;</span></a>
             <a class="button button-outline" href="#publications">Selected publications</a>
           </div>
           <p class="hero-location">Based in Hershey, Pennsylvania, USA</p>
@@ -120,6 +124,161 @@
             <p>Environmental costs of AI training and inference, and comparisons that consider both performance and resource use.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+
+    <section class="section section-showcase" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading showcase-heading">
+          <div>
+            <p class="eyebrow">Published research, visually explained</p>
+            <h2 id="results-title">Research in focus<span class="accent-stop">.</span></h2>
+          </div>
+          <p>Selected methods and findings, presented with source-backed visualizations. Explore the papers for full context, uncertainty, and limitations.</p>
+        </div>
+        <div id="data-status" class="data-status" role="status">Loading published research results…</div>
+
+        <article class="story story-main" aria-labelledby="sustainability-title">
+          <div class="story-content">
+            <div class="story-meta"><span class="story-num">01</span><span>Environmental impact of AI</span><span class="story-year">The Lancet Digital Health · 2024</span></div>
+            <h3 id="sustainability-title">How much carbon might AI generate in pathology?</h3>
+            <p>Our modeling study examined the carbon footprint of AI-supported pathology. We compared scenarios for model size, tissue selection, and computational strategies.</p>
+            <p>One tissue-analysis comparison found a much smaller modeled footprint for pathomics than for multitask deep learning. This result applies to the study's specific comparison, not every clinical AI task.</p>
+            <div class="story-link-row">
+              <a href="https://doi.org/10.1016/S2589-7500(23)00219-4" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a>
+              <span class="author-note">First-author study</span>
+            </div>
+          </div>
+          <div class="figure-panel figure-dark">
+            <p class="figure-kicker">MODELED COMPARISON · ONE TISSUE-ANALYSIS SCENARIO</p>
+            <div class="hero-metric"><strong id="emissions-fold">147×</strong><span>lower modeled CO₂-equivalent emissions for pathomics in the reported comparison</span></div>
+            <div id="emissions-figure" class="emissions-figure" aria-label="Normalized modeled emissions compared between deep learning and pathomics"></div>
+            <p class="figure-caption">Relative modeled CO₂-equivalent units, normalized to 147 for the deep-learning comparator and 1 for pathomics. Ratios are derived from the published finding, not direct emissions measurements. Source: 2024 paper, Fig. 4C.</p>
+          </div>
+        </article>
+
+        <article class="story story-alternate" aria-labelledby="pympute-story-title">
+          <div class="figure-panel figure-pympute">
+            <div class="figure-topline">
+              <div><p class="figure-kicker">REAL BENCHMARK VALUES</p><h4>MIMIC imputation methods</h4></div>
+              <div class="metric-switch" role="group" aria-label="Choose imputation evaluation metric">
+                <button type="button" data-chart-metric="mape" aria-pressed="true">MAPE</button>
+                <button type="button" data-chart-metric="rmse" aria-pressed="false">RMSE</button>
+              </div>
+            </div>
+            <div id="pympute-figure" class="pympute-figure" aria-label="Comparison chart reconstructed from paper table"></div>
+            <p id="metric-description" class="figure-caption">Published means and standard deviations across 11 evaluated methods. Lower is better.</p>
+            <details class="chart-details">
+              <summary>Inspect values and source</summary>
+              <div id="pympute-table" class="table-scroll"></div>
+              <p>These are aggregate benchmark values from <a href="https://doi.org/10.1038/s41598-025-02276-5">Scientific Reports (2025), Table 1</a>. The chart uses the original numeric table, not patient-level records.</p>
+            </details>
+          </div>
+          <div class="story-content">
+            <div class="story-meta"><span class="story-num">02</span><span>Missing data in health records</span><span class="story-year">Scientific Reports · 2025</span></div>
+            <h3 id="pympute-story-title">One imputation method does not fit every variable.</h3>
+            <p>Electronic health records contain substantial missing data. I developed Pympute to compare imputation methods and select models based on their performance on withheld values.</p>
+            <p>On the published MIMIC benchmark, the Flexible approach achieved the lowest reported holdout MAPE and RMSE among the methods evaluated. The chart uses the actual aggregate results from Table 1.</p>
+            <div class="story-link-row">
+              <a href="https://doi.org/10.1038/s41598-025-02276-5" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/vafaei-ar/Pympute" target="_blank" rel="noopener noreferrer">Explore Pympute <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <div class="story-grid">
+          <article class="story-tile" aria-labelledby="ecg-story-title">
+            <div class="tile-visual tile-ecg">
+              <p class="figure-kicker">MULTIMODAL PREDICTION · PILOT STUDY</p>
+              <div class="fusion-flow" aria-label="Illustrative model architecture: ECG and EHR information combined for atrial fibrillation prediction">
+                <div class="fusion-input">
+                  <span class="fusion-icon" aria-hidden="true">≋</span>
+                  <strong><span id="ecg-leads">12</span>-lead ECG</strong>
+                  <small>Waveform input</small>
+                </div>
+                <div class="fusion-plus" aria-hidden="true">+</div>
+                <div class="fusion-input">
+                  <span class="fusion-icon" aria-hidden="true">▤</span>
+                  <strong><span id="ecg-features">47</span> EHR variables</strong>
+                  <small>Clinical features</small>
+                </div>
+              </div>
+              <div class="fusion-arrow" aria-hidden="true">↓</div>
+              <div class="fusion-model">Multimodal attention model <span>→ PAF prediction</span></div>
+              <div class="pilot-metrics">
+                <div><strong id="ecg-auroc">0.65</strong><span>Reported AUROC</span></div>
+                <div><strong id="ecg-auprc">0.43</strong><span>Reported AUPRC</span></div>
+              </div>
+            </div>
+            <div class="tile-copy">
+              <div class="story-meta"><span class="story-num">03</span><span>Clinical prediction · Bioengineering 2025</span></div>
+              <h3 id="ecg-story-title">Can ECG and EHR data better identify hidden atrial fibrillation?</h3>
+              <p>We combined ECG waveforms and clinical variables in a pilot cohort of <strong id="ecg-patients">189</strong> stroke patients, including <strong id="ecg-paf">49</strong> with paroxysmal AF. The published performance is exploratory and requires external validation.</p>
+              <p class="figure-caption">Conceptual model schematic. The performance values are from the published study, not reconstructed test predictions.</p>
+              <a href="https://doi.org/10.3390/bioengineering12090961" target="_blank" rel="noopener noreferrer">Read the paper <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="story-tile" aria-labelledby="pathomics-story-title">
+            <div class="tile-visual tile-pathomics">
+              <p class="figure-kicker">HISTOPATHOLOGY · LARGE-SCALE MORPHOMETRY</p>
+              <div class="pathomics-topline"><div><strong id="pathomics-slides">1,743</strong><span>Digital tissue slides</span></div><span class="pathomics-arrow" aria-hidden="true">→</span><div><strong id="pathomics-structures">7,382,198</strong><span>Measured tissue structures</span></div></div>
+              <div class="structure-viz" aria-label="Breakdown of tissue structures reported in the Nature Communications paper">
+                <div><span class="structure-marker mark-a"></span><strong id="pathomics-glomeruli">89,160</strong><small>Glomeruli</small></div>
+                <div><span class="structure-marker mark-b"></span><strong id="pathomics-tubules">6,742,314</strong><small>Tubules</small></div>
+                <div><span class="structure-marker mark-c"></span><strong id="pathomics-arteries">550,724</strong><small>Arteries</small></div>
+              </div>
+              <p class="pathomics-caption">Summary of published counts, not microscope imagery.</p>
+            </div>
+            <div class="tile-copy">
+              <div class="story-meta"><span class="story-num">04</span><span>Computational pathology · Nature Communications 2023</span></div>
+              <h3 id="pathomics-story-title">Turning tissue images into measurable biological information</h3>
+              <p>In collaborative work on the FLASH framework, we analyzed <strong id="pathomics-cases">1,043</strong> cases. Segmentation and morphometry supported quantitative study of kidney tissue structures and clinical associations.</p>
+              <p class="figure-caption">The original study includes real histopathology images and segmentation examples. This summary displays its reported aggregate counts.</p>
+              <a href="https://doi.org/10.1038/s41467-023-36173-0" target="_blank" rel="noopener noreferrer">View paper and microscopy figures <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-demo" id="demo" aria-labelledby="demo-title">
+      <div class="container">
+        <div class="section-heading demo-heading">
+          <div>
+            <p class="eyebrow">Interactive research concept</p>
+            <h2 id="demo-title">What might a post-stroke AI check-in look like?</h2>
+          </div>
+          <p>AI-SoNar / VERA explores structured, human-supervised follow-up after stroke. The example below demonstrates its intended workflow using fictional scenarios.</p>
+        </div>
+        <div class="demo-shell">
+          <div class="demo-sidebar">
+            <span class="demo-overline">AI-SoNar / VERA · STORYBOARD</span>
+            <h3>Choose a fictional scenario</h3>
+            <p>This is a small educational illustration. It does not run the VERA model, use patient data, or make clinical decisions.</p>
+            <div class="demo-cases" role="group" aria-label="Choose a simulated patient response">
+              <button type="button" data-demo-case="routine" aria-pressed="true"><span>01</span> Routine follow-up</button>
+              <button type="button" data-demo-case="followup" aria-pressed="false"><span>02</span> Care coordination</button>
+              <button type="button" data-demo-case="warning" aria-pressed="false"><span>03</span> Warning signs</button>
+            </div>
+            <a class="demo-repo-link" href="https://github.com/vafaei-ar/VERA-cloud" target="_blank" rel="noopener noreferrer">See the research prototype <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="demo-stage" aria-live="polite" aria-atomic="true">
+            <div class="demo-device-top"><span class="demo-status-dot"></span> Fictional micro-check-in <span>NOT A MEDICAL DEVICE</span></div>
+            <div class="demo-steps"><span>Check-in</span><b aria-hidden="true">→</b><span>Structured observation</span><b aria-hidden="true">→</b><span>Human review</span></div>
+            <p class="demo-conversation-label">SIMULATED PATIENT RESPONSE</p>
+            <h4 id="demo-case-title">Routine check-in</h4>
+            <blockquote id="demo-quote">“I feel about the same as last week. My next visit is scheduled.”</blockquote>
+            <div class="demo-result">
+              <div><span class="demo-small-label">Structured observation</span><p id="demo-signal">No new concern reported in this fictional scenario.</p></div>
+              <div><span class="demo-small-label">Illustrative flag</span><span class="demo-flag flag-routine" id="demo-flag">Routine</span></div>
+            </div>
+            <div class="demo-next"><span class="demo-small-label">Human-supervised next step</span><p id="demo-next">Record a structured check-in for routine human review.</p></div>
+            <p class="demo-safety" id="demo-safety">Illustrative behavior only. Not actual VERA runtime output.</p>
+          </div>
+        </div>
+        <p class="demo-disclaimer"><strong>Research prototype, not a clinical service.</strong> Clinical rules and escalation language are drafts pending clinician review. Do not enter health information into this website. For real emergency symptoms, contact emergency services.</p>
       </div>
     </section>
 
@@ -215,6 +374,7 @@
             <div><h3><a href="https://doi.org/10.1038/s41746-024-01397-x">Ecologically sustainable benchmarking of AI models for histopathology <span aria-hidden="true">&nearr;</span></a></h3><p>Lan Y-C et al. <em>npj Digital Medicine</em>.</p></div>
           </li>
         </ol>
+        <p class="publication-additional"><strong>2023 · Nature Communications:</strong> <a href="https://doi.org/10.1038/s41467-023-36173-0">Next-Generation Morphometry for pathomics-data mining in histopathology</a> (Hölscher DL et al., co-author).</p>
         <a class="text-link" href="https://scholar.google.com/citations?user=HKg8ASsAAAAJ">See all publications on Google Scholar <span aria-hidden="true">&rarr;</span></a>
       </div>
     </section>
