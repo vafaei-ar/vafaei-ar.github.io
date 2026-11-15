@@ -1,0 +1,121 @@
+{
+  "scope": "Published aggregate research results only. No patient-level records.",
+  "studies": {
+    "sustainable_ai": {
+      "title": "Operational greenhouse-gas emissions of deep learning in digital pathology",
+      "doi": "10.1016/S2589-7500(23)00219-4",
+      "source": "Lancet Digital Health (2024), results discussion of Figure 4C.",
+      "fold_lower_modeled_co2eq": 147,
+      "statement": "In a specific renal-cell-carcinoma tissue-analysis comparison, a pathomics run produced comparable or better information with 147 times lower modeled CO2-equivalent emissions than multitask deep learning.",
+      "interpretation": "Scenario-specific estimate, not a general reduction across all pathology or AI tasks."
+    },
+    "pympute": {
+      "title": "Flexible imputation toolkit for electronic health records",
+      "doi": "10.1038/s41598-025-02276-5",
+      "source": "Scientific Reports (2025), Table 1, MIMIC benchmark. Mean and standard deviation across runs.",
+      "metrics": [
+        {
+          "name": "BRidge",
+          "mape": 2.18,
+          "mape_sd": 0.07,
+          "rmse": 0.0027,
+          "rmse_sd": 0.00028
+        },
+        {
+          "name": "ElasticNet",
+          "mape": 2.64,
+          "mape_sd": 0.06,
+          "rmse": 0.0033,
+          "rmse_sd": 0.00029
+        },
+        {
+          "name": "KNN",
+          "mape": 3.25,
+          "mape_sd": 0.07,
+          "rmse": 0.0044,
+          "rmse_sd": 0.00034
+        },
+        {
+          "name": "LR",
+          "mape": 2.19,
+          "mape_sd": 0.06,
+          "rmse": 0.0029,
+          "rmse_sd": 0.00073
+        },
+        {
+          "name": "Lasso",
+          "mape": 2.81,
+          "mape_sd": 0.08,
+          "rmse": 0.0036,
+          "rmse_sd": 0.00034
+        },
+        {
+          "name": "MLP",
+          "mape": 3.05,
+          "mape_sd": 0.09,
+          "rmse": 0.0037,
+          "rmse_sd": 0.00036
+        },
+        {
+          "name": "RF",
+          "mape": 2.45,
+          "mape_sd": 0.06,
+          "rmse": 0.003,
+          "rmse_sd": 0.00026
+        },
+        {
+          "name": "Ridge",
+          "mape": 2.24,
+          "mape_sd": 0.08,
+          "rmse": 0.0028,
+          "rmse_sd": 0.00032
+        },
+        {
+          "name": "SVM",
+          "mape": 3.6,
+          "mape_sd": 0.07,
+          "rmse": 0.0037,
+          "rmse_sd": 0.0003
+        },
+        {
+          "name": "XGB",
+          "mape": 2.19,
+          "mape_sd": 0.06,
+          "rmse": 0.0029,
+          "rmse_sd": 0.00025
+        },
+        {
+          "name": "Flexible",
+          "mape": 2.04,
+          "mape_sd": 0.06,
+          "rmse": 0.0025,
+          "rmse_sd": 0.00027
+        }
+      ]
+    },
+    "ecg_ehr": {
+      "title": "Integration of EHR and ECG Data for Predicting Paroxysmal Atrial Fibrillation in Stroke Patients",
+      "doi": "10.3390/bioengineering12090961",
+      "source": "Bioengineering (2025), published abstract. Exploratory retrospective cohort.",
+      "patients": 189,
+      "paf_cases": 49,
+      "ehr_variables": 47,
+      "ecg_leads": 12,
+      "reported_auroc": 0.65,
+      "reported_auprc": 0.43,
+      "validation": "Cross-validation in a small pilot cohort, not external prospective validation."
+    },
+    "pathomics": {
+      "title": "Next-Generation Morphometry for pathomics-data mining in histopathology",
+      "doi": "10.1038/s41467-023-36173-0",
+      "source": "Nature Communications (2023), Figure 1 and caption.",
+      "cases": 1043,
+      "whole_slide_images": 1743,
+      "instances": 7382198,
+      "glomeruli": 89160,
+      "tubules": 6742314,
+      "arteries": 550724,
+      "interpretation": "Counts describe histomorphometric structures analyzed by the team, not independent patients. Co-authored study."
+    }
+  }
+}
