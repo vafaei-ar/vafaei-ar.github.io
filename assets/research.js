@@ -89,6 +89,30 @@
     });
     table.appendChild(body);t.replaceChildren(table);
   }
+
+  function renderStrokeCarbon(){
+    if(!studies||!studies.stroke_carbon_2026)return;
+    const d=studies.stroke_carbon_2026;
+    setValue("stroke-carbon-reduction",d.reported_relative_reduction_percent.toFixed(2)+"%");
+    const chart=el("stroke-carbon-chart");if(!chart)return;
+    const s=svgNode("svg",{viewBox:"0 0 650 180",role:"img","aria-labelledby":"stroke-carbon-title stroke-carbon-desc",class:"stroke-carbon-svg"});
+    s.appendChild(svgNode("title",{id:"stroke-carbon-title"},"Modeled AI emissions in stroke care before and after carbon-aware processing"));
+    s.appendChild(svgNode("desc",{id:"stroke-carbon-desc"},"Ideal AI scenario: 16,375.09 metric tonnes CO2 equivalent per year in the modeled baseline, versus 7,408.68 after hypothetical relocation to cleaner electricity grids. Reported 54.75 percent reduction. These are modeled outcomes."));
+    const rows=[
+      {name:"Baseline grid mix",value:d.ideal_scenario_co2eq_tonnes_per_year,color:"#367d9a"},
+      {name:"Cleaner-grid routing",value:d.cleaner_grid_relocated_co2eq_tonnes_per_year,color:"#16a78c"}
+    ];
+    const max=d.ideal_scenario_co2eq_tonnes_per_year;
+    rows.forEach((row,i)=>{
+      const y=39+i*77;
+      s.appendChild(svgNode("text",{x:4,y:y-13,fill:"#2a5665","font-size":16,"font-weight":750},row.name));
+      s.appendChild(svgNode("rect",{x:4,y:y,width:520,height:20,rx:10,fill:"#d8eeea"}));
+      s.appendChild(svgNode("rect",{x:4,y:y,width:520*row.value/max,height:20,rx:10,fill:row.color}));
+      s.appendChild(svgNode("text",{x:632,y:y+16,"text-anchor":"end",fill:"#184f5d","font-size":17,"font-weight":800},Math.round(row.value).toLocaleString("en-US")+" t"));
+    });
+    chart.replaceChildren(s);
+  }
+
   function renderMetadata(){
     const e=studies.ecg_ehr,p=studies.pathomics;
     [["ecg-patients",e.patients],["ecg-paf",e.paf_cases],["ecg-features",e.ehr_variables],["ecg-leads",e.ecg_leads],["ecg-auroc",e.reported_auroc.toFixed(2)],["ecg-auprc",e.reported_auprc.toFixed(2)],
@@ -124,7 +148,7 @@
       if(!response.ok)throw Error("Published result data not available");
       const payload=await response.json();
       studies=payload.studies;
-      renderSustainability();renderPympute();renderMetadata();
+      renderSustainability();renderStrokeCarbon();renderPympute();renderMetadata();
       if(el("data-status"))el("data-status").hidden=true;
     }catch(err){
       setValue("data-status","The interactive research charts could not load. Published paper links remain available.");
