@@ -241,3 +241,20 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
  .site-nav a{font-size:.76rem}
 }
 @media(prefers-reduced-motion:reduce){.research-card,.project-card,.button{transition:none!important;transform:none!important}}
+
+
+/* 2026 stroke sustainability highlight */
+.story-brief{display:grid;grid-template-columns:1fr 1.04fr;gap:0;margin:-1px 0 29px;border:1px solid #cce7e1;border-radius:25px;overflow:hidden;background:#f4fcf9;box-shadow:var(--soft-shadow)}
+.brief-copy{padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:center}
+.brief-eyebrow{display:block;color:#118475;font-weight:800;font-size:.69rem;letter-spacing:.13em;margin-bottom:15px}
+.brief-copy h3{font-size:clamp(1.6rem,2.25vw,2.45rem);line-height:1.21;margin-bottom:15px}
+.brief-copy p{font-size:.93rem;line-height:1.74;color:#4c6a73}
+.brief-copy>a{margin-top:12px;font-size:.86rem;font-weight:800;align-self:start;color:#047b70;text-decoration:none;border-bottom:1px solid #68b8a6;padding-bottom:4px}
+.brief-copy>a:hover{border-color:#047b70}
+.brief-chart{background:linear-gradient(155deg,#e5f7f0,#e6f3f7);padding:31px 35px}
+.brief-big-number{display:flex;gap:16px;align-items:baseline;margin-bottom:12px}
+.brief-big-number strong{font:800 clamp(2.8rem,4.6vw,4.8rem) Manrope,sans-serif;letter-spacing:-.075em;color:#088375}
+.brief-big-number span{font-size:.85rem;color:#3b766f;max-width:17ch;line-height:1.45}
+.stroke-carbon-svg{width:100%;height:auto;display:block}
+@media(max-width:1080px){.story-brief{grid-template-columns:1fr}}
+@media(max-width:640px){.brief-copy{padding:28px 24px}.brief-chart{padding:25px 19px}.brief-big-number{flex-wrap:wrap;gap:6px}}
