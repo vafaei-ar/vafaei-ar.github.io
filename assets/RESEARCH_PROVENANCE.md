@@ -8,6 +8,12 @@ DOI: https://doi.org/10.1016/S2589-7500(23)00219-4
 
 The study described one specific tissue-analysis comparison in which pathomics had 147 times lower modeled CO2-equivalent emissions than multitask deep learning. The website normalizes that result to relative values 147 and 1. It does not report absolute emissions or imply the comparison generalizes to other tasks.
 
+## Journal of the American Heart Association (2026): Stroke AI carbon-aware processing
+Vafaei Sadr A, et al. "Evaluating and Mitigating Carbon Dioxide Equivalent Emissions in Stroke Management: A Modeling Study."
+DOI: https://doi.org/10.1161/JAHA.125.047556
+
+Published modeled outcomes for the Ideal AI scenario were 16,375.09 metric tonnes CO2e/year (95% CI 16,340.83–16,409.36) using the baseline grid allocation and 7,408.68 metric tonnes (95% CI 7,386.99–7,430.38) when computation was hypothetically redirected to cleaner electricity grids. The reported reduction is 54.75%. This is a modeled policy scenario, not an observed post-implementation reduction. The website chart is independently coded from the reported numbers and does not reproduce publisher artwork.
+
 ## Scientific Reports (2025): Pympute
 Vafaei Sadr A, et al. "Flexible imputation toolkit for electronic health records."
 DOI: https://doi.org/10.1038/s41598-025-02276-5
