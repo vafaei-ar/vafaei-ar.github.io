@@ -116,6 +116,23 @@
       "tubules": 6742314,
       "arteries": 550724,
       "interpretation": "Counts describe histomorphometric structures analyzed by the team, not independent patients. Co-authored study."
+    },
+    "stroke_carbon_2026": {
+      "title": "Evaluating and Mitigating Carbon Dioxide Equivalent Emissions in Stroke Management: A Modeling Study",
+      "doi": "10.1161/JAHA.125.047556",
+      "source": "Journal of the American Heart Association (2026), abstract and primary Results.",
+      "ideal_scenario_co2eq_tonnes_per_year": 16375.09,
+      "cleaner_grid_relocated_co2eq_tonnes_per_year": 7408.68,
+      "reported_relative_reduction_percent": 54.75,
+      "original_95_ci_tonnes": [
+        16340.83,
+        16409.36
+      ],
+      "relocated_95_ci_tonnes": [
+        7386.99,
+        7430.38
+      ],
+      "interpretation": "Scenario-based model of AI-related stroke-imaging emissions and hypothetical relocation to selected cleaner electricity grids. Not realized operational savings."
     }
   }
 }
