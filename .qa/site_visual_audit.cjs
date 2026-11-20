@@ -59,6 +59,7 @@ async function main(){
   try{
     const desktop=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
     desktop.on("pageerror",err=>results.errors.push("desktop "+err.message));
+    desktop.on("response",resp=>{if(resp.status()>=400)results.warnings.push("desktop HTTP "+resp.status()+" "+resp.url());});
     desktop.on("console",msg=>{if(msg.type()==="error")results.warnings.push("desktop console: "+msg.text().slice(0,300));});
     const response=await desktop.goto(URL,{waitUntil:"domcontentloaded",timeout:60000});
     assert.ok(response&&response.status()===200,"Desktop homepage HTTP 200 expected");
@@ -82,6 +83,7 @@ async function main(){
 
     const mobile=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
     mobile.on("pageerror",err=>results.errors.push("mobile "+err.message));
+    mobile.on("response",resp=>{if(resp.status()>=400)results.warnings.push("mobile HTTP "+resp.status()+" "+resp.url());});
     mobile.on("console",msg=>{if(msg.type()==="error")results.warnings.push("mobile console: "+msg.text().slice(0,300));});
     const responseM=await mobile.goto(URL,{waitUntil:"domcontentloaded",timeout:60000});
     assert.ok(responseM&&responseM.status()===200,"Mobile homepage HTTP 200 expected");
