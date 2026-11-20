@@ -152,6 +152,7 @@
       if(el("data-status"))el("data-status").hidden=true;
     }catch(err){
       setValue("data-status","The interactive research charts could not load. Published paper links remain available.");
+      if(el("data-status"))el("data-status").hidden=false;
       console.error(err);
     }
   }

@@ -258,3 +258,34 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
 .stroke-carbon-svg{width:100%;height:auto;display:block}
 @media(max-width:1080px){.story-brief{grid-template-columns:1fr}}
 @media(max-width:640px){.brief-copy{padding:28px 24px}.brief-chart{padding:25px 19px}.brief-big-number{flex-wrap:wrap;gap:6px}}
+
+
+/* Readability polish from November 2026 site audit.
+   Minimum body-sized research annotations target WCAG AA contrast (4.5:1). */
+.story-meta{color:#246861}
+.story-year{color:#59717d}
+.figure-panel:not(.figure-dark) .figure-caption{color:#476473!important}
+.figure-dark .figure-caption{color:#a7c5d0!important}
+.demo-conversation-label,.demo-small-label{color:#416672}
+.card-number{color:#426d7c}
+.pathomics-caption{color:#446a61}
+.demo-steps{color:#416e63}
+.demo-result p,.demo-next p{color:#345567}
+@media(max-width:640px){
+  /* Stable, visible focus target for touch/keyboard navigation */
+  .demo-cases button{min-height:48px}
+  .metric-switch button{min-height:44px;min-width:52px}
+}
+
+/* Mobile editorial hierarchy: show the research introduction and CTA before portrait. */
+.mobile-chart-hint{display:none}
+@media(max-width:640px){
+  .hero-grid{flex-direction:column}
+  .hero-copy{order:0}
+  .portrait-wrap{order:1;max-width:260px;margin:8px auto 0}
+  .site-nav{width:100%;flex-wrap:nowrap;white-space:nowrap;overflow-x:auto;gap:17px;padding:1px 0 9px;scrollbar-width:thin;scrollbar-color:#5d969d transparent}
+  .site-nav a{flex-shrink:0;font-size:.81rem}
+  .header-inner{padding:10px 0 5px}
+  html{scroll-padding-top:118px}
+  .mobile-chart-hint{display:block;font-size:.78rem;color:#476473;margin:9px 0 3px}
+}
