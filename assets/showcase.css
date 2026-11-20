@@ -258,3 +258,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
 .stroke-carbon-svg{width:100%;height:auto;display:block}
 @media(max-width:1080px){.story-brief{grid-template-columns:1fr}}
 @media(max-width:640px){.brief-copy{padding:28px 24px}.brief-chart{padding:25px 19px}.brief-big-number{flex-wrap:wrap;gap:6px}}
+
+
+/* Readability polish from November 2026 site audit.
+   Minimum body-sized research annotations target WCAG AA contrast (4.5:1). */
+.story-meta{color:#246861}
+.story-year{color:#59717d}
+.figure-panel:not(.figure-dark) .figure-caption{color:#476473!important}
+.figure-dark .figure-caption{color:#a7c5d0!important}
+.demo-conversation-label,.demo-small-label{color:#416672}
+.card-number{color:#426d7c}
+.pathomics-caption{color:#446a61}
+.demo-steps{color:#416e63}
+.demo-result p,.demo-next p{color:#345567}
+@media(max-width:640px){
+  /* Stable, visible focus target for touch/keyboard navigation */
+  .demo-cases button{min-height:48px}
+  .metric-switch button{min-height:44px;min-width:52px}
+}
