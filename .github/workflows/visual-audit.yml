@@ -1,0 +1,22 @@
+name: Visual QA - temporary
+on:
+  push:
+    branches:
+      - site-visual-audit-20261119
+permissions:
+  contents: read
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Audit deployed website
+        run: node .qa/site_visual_audit.cjs
