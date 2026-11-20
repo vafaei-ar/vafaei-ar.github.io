@@ -1,8 +1,5 @@
 name: Visual QA - temporary
 on:
-  push:
-    branches:
-      - site-visual-audit-20261119
   pull_request:
     branches:
       - main
@@ -10,7 +7,7 @@ permissions:
   contents: read
 jobs:
   screenshot:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
