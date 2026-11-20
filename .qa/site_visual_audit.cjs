@@ -55,7 +55,7 @@ async function inspect(page, name) {
 }
 
 async function main(){
-  const browser=await chromium.launch({headless:true});
+  const browser=await chromium.launch({headless:true,channel:"chrome"});
   try{
     const desktop=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
     desktop.on("pageerror",err=>results.errors.push("desktop "+err.message));
