@@ -25,6 +25,12 @@ async function inspect(page, name) {
       hasHorizontalOverflow:root.scrollWidth>window.innerWidth+3,
       overflow,
       bodyFont:getComputedStyle(document.body).fontFamily,
+      heroCopyTop:Math.round(document.querySelector(".hero-copy").getBoundingClientRect().top+window.scrollY),
+      portraitTop:Math.round(document.querySelector(".portrait-wrap").getBoundingClientRect().top+window.scrollY),
+      mobileChartHintVisible:(()=>{
+        const e=document.querySelector(".mobile-chart-hint");
+        return e ? getComputedStyle(e).display!=="none" : false;
+      })(),
       headerHeight:Math.round(document.querySelector(".site-header").getBoundingClientRect().height),
       heroHeight:Math.round(document.querySelector(".hero").getBoundingClientRect().height),
       portraitLoaded:(()=>{
@@ -41,6 +47,11 @@ async function inspect(page, name) {
   assert.equal(dimensions.portraitLoaded,true,"Missing portrait at "+name);
   assert.equal(dimensions.numFigures,3,"Missing generated figure(s) at "+name);
   assert.equal(dimensions.hasHorizontalOverflow,false,"Horizontal page overflow at "+name+": "+JSON.stringify(dimensions.overflow));
+  if(name==="mobile"){
+    assert.ok(dimensions.heroCopyTop < dimensions.portraitTop, "Mobile first-screen research introduction must precede portrait");
+    assert.ok(dimensions.headerHeight < 125, "Mobile sticky header too tall");
+    assert.equal(dimensions.mobileChartHintVisible,true,"Mobile chart swipe hint not visible");
+  }
 }
 
 async function main(){
@@ -78,6 +89,8 @@ async function main(){
     await mobile.evaluate(()=>document.fonts?.ready);
     await inspect(mobile,"mobile");
     await capture("mobile-top",await mobile.screenshot({type:"jpeg",quality:58}));
+    await mobile.locator(".story-alternate").scrollIntoViewIfNeeded();
+    await capture("mobile-pympute",await mobile.screenshot({type:"jpeg",quality:58}));
     await mobile.locator("#demo").scrollIntoViewIfNeeded();
     await capture("mobile-demo",await mobile.screenshot({type:"jpeg",quality:58}));
     await mobile.locator('[data-demo-case="followup"]').click();
