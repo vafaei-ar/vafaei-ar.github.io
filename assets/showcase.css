@@ -276,3 +276,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
   .demo-cases button{min-height:48px}
   .metric-switch button{min-height:44px;min-width:52px}
 }
+
+/* Mobile editorial hierarchy: show the research introduction and CTA before portrait. */
+.mobile-chart-hint{display:none}
+@media(max-width:640px){
+  .hero-grid{flex-direction:column}
+  .hero-copy{order:0}
+  .portrait-wrap{order:1;max-width:260px;margin:8px auto 0}
+  .site-nav{width:100%;flex-wrap:nowrap;white-space:nowrap;overflow-x:auto;gap:17px;padding:1px 0 9px;scrollbar-width:thin;scrollbar-color:#5d969d transparent}
+  .site-nav a{flex-shrink:0;font-size:.81rem}
+  .header-inner{padding:10px 0 5px}
+  html{scroll-padding-top:118px}
+  .mobile-chart-hint{display:block;font-size:.78rem;color:#476473;margin:9px 0 3px}
+}
