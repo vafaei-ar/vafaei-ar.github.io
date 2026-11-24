@@ -329,3 +329,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
 /* Crop the on-page view to the top of the real setup screen for legibility.
    The unmodified full-height screenshot remains available when opened. */
 .vera-setup-frame img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:top}
+
+/* Never cover the data-bearing microscopy/segmentation pixels with a link badge. */
+.micrograph-open{position:static;display:inline-flex;align-items:center;margin:9px 12px 7px;padding:7px 12px}
