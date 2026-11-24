@@ -289,3 +289,39 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
   html{scroll-padding-top:118px}
   .mobile-chart-hint{display:block;font-size:.78rem;color:#476473;margin:9px 0 3px}
 }
+
+
+
+/* Evidence in the actual study: pixel-preserving crop from Nature Communications Fig 2a */
+.microscopy-evidence{margin:4px 0 13px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #c9e7dc;box-shadow:0 10px 24px rgba(23,88,73,.06)}
+.micrograph-link{display:block;text-decoration:none;position:relative;background:#fff}
+.micrograph-link img{display:block;width:100%;height:auto;aspect-ratio:1878/761;object-fit:contain}
+.micrograph-open{position:absolute;bottom:8px;right:9px;background:rgba(14,55,52,.91);color:#fff;font-size:.7rem;letter-spacing:.025em;font-weight:700;padding:7px 11px;border-radius:100px}
+.micrograph-link:hover .micrograph-open,.micrograph-link:focus-visible .micrograph-open{background:#076f63}
+.microscopy-evidence figcaption{font-size:.73rem;line-height:1.55;color:#466a63;padding:11px 14px;margin:0;background:#f7fffc}
+.microscopy-evidence figcaption a{color:#0b7066;font-weight:750}
+.tile-pathomics{justify-content:flex-start}
+.tile-pathomics>.figure-kicker{margin-bottom:9px}
+.tile-pathomics .pathomics-topline{margin-top:4px}
+.tile-pathomics .structure-viz{margin-top:12px}
+.pathomics-caption{margin:5px 0 0}
+
+/* Authentic VERA Cloud software captures, with openly disclosed fictional UI content */
+.vera-gallery{margin:48px 0 8px;position:relative}
+.vera-gallery-intro{display:grid;grid-template-columns:1.05fr 1fr;align-items:end;gap:30px;margin-bottom:22px}
+.vera-gallery-intro .eyebrow{color:#83e5c8;margin-bottom:11px}
+.vera-gallery-intro h3{font-size:clamp(1.55rem,2.65vw,2.35rem);font-weight:800;color:#fff;margin:0;letter-spacing:-.05em}
+.vera-gallery-intro>p{font-size:.9rem;color:#bfd7dd;line-height:1.7;margin:0}
+.vera-gallery-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:21px}
+.vera-screenshot-card{margin:0;background:#fff;border:1px solid #d2e4e9;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(0,20,32,.17);display:flex;flex-direction:column}
+.vera-shot-frame{background:linear-gradient(145deg,#edf7f8,#e3f1f1);padding:22px;display:flex;align-items:flex-start;justify-content:center;min-height:360px;height:405px;overflow:hidden;border-bottom:1px solid #dfebef;transition:background .2s}
+.vera-shot-frame:hover{background:#e2f5f1}
+.vera-shot-frame img{display:block;width:auto;max-width:100%;height:auto;max-height:100%;object-fit:contain;object-position:top;box-shadow:0 12px 30px rgba(20,48,62,.1);border-radius:10px}
+.vera-chat-frame{align-items:center;background:linear-gradient(145deg,#e5f3f8,#e2f3f2)}
+.vera-chat-frame img{width:100%;height:auto}
+.vera-screenshot-card figcaption{padding:21px 24px 25px;line-height:1.66;color:#4a6677;font-size:.84rem}
+.vera-screenshot-card figcaption strong{display:block;color:#163b4b;font:800 .93rem Manrope,sans-serif;margin-bottom:7px}
+.vera-gallery-source{font-size:.76rem;color:#b0d1d9;margin:18px 0 0}
+.vera-gallery-source a{color:#a3f0d8;font-weight:750}
+@media(max-width:920px){.vera-gallery-intro{grid-template-columns:1fr;gap:12px}.vera-gallery-grid{grid-template-columns:1fr 1fr}.vera-shot-frame{height:330px;min-height:300px;padding:14px}}
+@media(max-width:640px){.vera-gallery{margin-top:37px}.vera-gallery-grid{grid-template-columns:1fr;gap:18px}.vera-shot-frame{height:320px;min-height:0}.vera-gallery-intro h3{font-size:1.75rem}.microscopy-evidence figcaption{font-size:.72rem}.micrograph-open{font-size:.63rem;padding:5px 9px}.vera-screenshot-card figcaption{padding:18px}}
