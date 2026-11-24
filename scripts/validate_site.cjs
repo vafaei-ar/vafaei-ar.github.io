@@ -22,6 +22,26 @@ assert.match(html,/The Lancet Digital Health/);
 assert.match(html,/Journal of the American Heart Association/);
 assert.match(html,/Scientific Reports/);
 assert.match(html,/Nature Communications/);
+assert.match(html,/flash-fig2a-microscopy\.png/);
+assert.match(html,/vera-setup\.png/);
+assert.match(html,/vera-conversation\.png/);
+assert.match(html,/Creative Commons|CC BY 4\.0/);
+assert.match(html,/fictional inputs/);
+const authenticAssets=[
+  "assets/media/flash-fig2-original.png",
+  "assets/media/flash-fig2a-microscopy.png",
+  "assets/media/vera-setup.png",
+  "assets/media/vera-conversation.png"
+];
+const pngSignature=Buffer.from([137,80,78,71,13,10,26,10]);
+for(const rel of authenticAssets){
+  const full=path.join(root,rel);
+  assert.ok(fs.existsSync(full),"Missing authentic research image: "+rel);
+  const bytes=fs.readFileSync(full);
+  assert.ok(bytes.length>12000,"Research image suspiciously small: "+rel);
+  assert.ok(bytes.subarray(0,8).equals(pngSignature),"Not a valid PNG signature: "+rel);
+}
+
 assert.ok(!html.includes("ai-sonar-economic-model"),"Private repo must not be linked");
 assert.equal(data.studies.sustainable_ai.fold_lower_modeled_co2eq,147);
 assert.equal(data.studies.stroke_carbon_2026.reported_relative_reduction_percent,54.75);
