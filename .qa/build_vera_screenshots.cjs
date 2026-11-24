@@ -47,7 +47,7 @@ async function main(){
    await page.locator("#patientId").fill("");  // no patient ID
    await page.locator("#autoListen").uncheck();
    assert.equal(await page.locator("#startButton").isEnabled(),true);
-   await page.screenshot({path:path.join(out,"vera-setup.png"),animations:"disabled",clip:{x:250,y:0,width:1160,height:900}});
+   await page.screenshot({path:path.join(out,"vera-setup.png"),animations:"disabled",clip:{x:250,y:0,width:720,height:900}});
    // Scene 2: genuine frontend markup and JavaScript with fictional UI state.
    // These messages are explicitly injected for an offline SCREENSHOT, not from the app's backend.
    await page.evaluate(()=>{
@@ -63,7 +63,9 @@ async function main(){
    });
    assert.equal(await page.locator("#conversation.section.active").count(),1);
    assert.equal(await page.locator("#transcript .transcript-message").count(),3);
-   await page.screenshot({path:path.join(out,"vera-conversation.png"),animations:"disabled",clip:{x:250,y:0,width:1160,height:900}});
+   // Capture the actual frontend transcript container rather than the empty margin.
+   await page.locator(".transcript-container").scrollIntoViewIfNeeded();
+   await page.locator(".transcript-container").screenshot({path:path.join(out,"vera-conversation.png"),animations:"disabled"});
    assert.deepEqual(bad,[],"Frontend JavaScript errors during offline capture");
    const files=["vera-setup.png","vera-conversation.png"];
    for(const f of files){
