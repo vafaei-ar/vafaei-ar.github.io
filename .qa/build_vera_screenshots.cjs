@@ -63,6 +63,8 @@ async function main(){
    });
    assert.equal(await page.locator("#conversation.section.active").count(),1);
    assert.equal(await page.locator("#transcript .transcript-message").count(),3);
+   // The simulated transcript did not run speech recognition; remove its synthetic confidence badge.
+   await page.evaluate(()=>document.querySelectorAll("#transcript .confidence").forEach(node=>node.remove()));
    // Capture the actual frontend transcript container rather than the empty margin.
    await page.locator(".transcript-container").scrollIntoViewIfNeeded();
    await page.locator(".transcript-container").screenshot({path:path.join(out,"vera-conversation.png"),animations:"disabled"});
