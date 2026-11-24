@@ -31,6 +31,13 @@ async function inspect(page,label){
  assert.equal(response.status(),200,"Homepage HTTP 200 required");
  await page.locator("#pympute-figure svg").waitFor({timeout:15000});
  await page.locator("#stroke-carbon-chart svg").waitFor({timeout:15000});
+ for(const selector of [".microscopy-evidence img",".vera-setup-frame img",".vera-chat-frame img",".portrait"]){
+   await page.locator(selector).scrollIntoViewIfNeeded();
+   await page.waitForFunction(css=>{
+     const img=document.querySelector(css);
+     return !!img?.complete && img.naturalWidth>0;
+   },selector,{timeout:20000});
+ }
  const files=await page.evaluate(()=>{
    const refs=[".microscopy-evidence img",".vera-setup-frame img",".vera-chat-frame img",".portrait"];
    return refs.map(css=>{
