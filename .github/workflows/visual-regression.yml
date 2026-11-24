@@ -1,0 +1,22 @@
+name: Visual regression checks
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright test harness
+        run: |
+          npm install --no-save playwright@1.56.1
+          google-chrome --version
+      - name: Verify desktop and mobile visuals
+        run: node scripts/visual_site_qa.cjs
