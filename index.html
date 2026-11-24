@@ -13,7 +13,7 @@
   <meta property="og:image" content="https://vafaei-ar.github.io/profile-image.jpg">
   <link rel="canonical" href="https://vafaei-ar.github.io/">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="assets/showcase.css?v=20261120">
+  <link rel="stylesheet" href="assets/showcase.css?v=20261123">
   <script src="assets/research.js?v=20261120" defer></script>
   <title>Alireza Vafaei Sadr, PhD | Clinical AI Research</title>
   <script type="application/ld+json">
@@ -239,19 +239,26 @@
           <article class="story-tile" aria-labelledby="pathomics-story-title">
             <div class="tile-visual tile-pathomics">
               <p class="figure-kicker">HISTOPATHOLOGY · LARGE-SCALE MORPHOMETRY</p>
+              <figure class="microscopy-evidence">
+                <a class="micrograph-link" href="assets/media/flash-fig2-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open the complete published microscopy figure">
+                  <img src="assets/media/flash-fig2a-microscopy.png" alt="Actual PAS-stained kidney glomeruli beside their FLASH segmentation masks for several glomerular disease patterns, cropped from published Figure 2a" loading="lazy" decoding="async" width="1878" height="761">
+                  <span class="micrograph-open">View complete figure <span aria-hidden="true">↗</span></span>
+                </a>
+                <figcaption>Real microscopy and segmentation overlays, cropped from Fig. 2a of Hölscher et al., <em>Nature Communications</em> (2023). <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>; crop only.</figcaption>
+              </figure>
               <div class="pathomics-topline"><div><strong id="pathomics-slides">1,743</strong><span>Digital tissue slides</span></div><span class="pathomics-arrow" aria-hidden="true">→</span><div><strong id="pathomics-structures">7,382,198</strong><span>Measured tissue structures</span></div></div>
               <div class="structure-viz" aria-label="Breakdown of tissue structures reported in the Nature Communications paper">
                 <div><span class="structure-marker mark-a"></span><strong id="pathomics-glomeruli">89,160</strong><small>Glomeruli</small></div>
                 <div><span class="structure-marker mark-b"></span><strong id="pathomics-tubules">6,742,314</strong><small>Tubules</small></div>
                 <div><span class="structure-marker mark-c"></span><strong id="pathomics-arteries">550,724</strong><small>Arteries</small></div>
               </div>
-              <p class="pathomics-caption">Summary of published counts, not microscope imagery.</p>
+              <p class="pathomics-caption">Published aggregate counts from five pathology cohorts.</p>
             </div>
             <div class="tile-copy">
               <div class="story-meta"><span class="story-num">04</span><span>Computational pathology · Nature Communications 2023</span></div>
               <h3 id="pathomics-story-title">Turning tissue images into measurable biological information</h3>
               <p>In collaborative work on the FLASH framework, we analyzed <strong id="pathomics-cases">1,043</strong> cases. Segmentation and morphometry supported quantitative study of kidney tissue structures and clinical associations.</p>
-              <p class="figure-caption">The original study includes real histopathology images and segmentation examples. This summary displays its reported aggregate counts.</p>
+              <p class="figure-caption">The image above uses the original published microscopy pixels. Only the panel framing was cropped. The numbers summarize the reported analysis, not an independent validation.</p>
               <a href="https://doi.org/10.1038/s41467-023-36173-0" target="_blank" rel="noopener noreferrer">View paper and microscopy figures <span aria-hidden="true">↗</span></a>
             </div>
           </article>
@@ -294,6 +301,31 @@
             <p class="demo-safety" id="demo-safety">Illustrative behavior only. Not actual VERA runtime output.</p>
           </div>
         </div>
+        <div class="vera-gallery" aria-labelledby="vera-gallery-title">
+          <div class="vera-gallery-intro">
+            <div>
+              <p class="eyebrow">Inside the software</p>
+              <h3 id="vera-gallery-title">Actual VERA Cloud interface</h3>
+            </div>
+            <p>These screenshots were rendered from the public VERA Cloud frontend with fictional inputs. They show the implemented interface, not a live clinical encounter or a validated AI response.</p>
+          </div>
+          <div class="vera-gallery-grid">
+            <figure class="vera-screenshot-card">
+              <a class="vera-shot-frame vera-setup-frame" href="assets/media/vera-setup.png" target="_blank" rel="noopener noreferrer" aria-label="Open full resolution VERA Cloud check-in setup screenshot">
+                <img src="assets/media/vera-setup.png" alt="Screenshot of the real VERA Cloud check-in setup interface, showing AI identity notice, stroke survivor or caregiver selection, and optional form fields with no patient information entered" loading="lazy" decoding="async">
+              </a>
+              <figcaption><strong>01 · Check-in setup</strong> The real frontend presents the system's AI identity and structured check-in options. The screenshot was captured offline; no patient records were accessed.</figcaption>
+            </figure>
+            <figure class="vera-screenshot-card">
+              <a class="vera-shot-frame vera-chat-frame" href="assets/media/vera-conversation.png" target="_blank" rel="noopener noreferrer" aria-label="Open full resolution VERA Cloud synthetic transcript screenshot">
+                <img src="assets/media/vera-conversation.png" alt="Screenshot of the VERA Cloud transcript component showing a synthetic question, fictional follow-up appointment concern, and hypothetical human-review response" loading="lazy" decoding="async">
+              </a>
+              <figcaption><strong>02 · Conversation view</strong> The transcript uses the original application's components with fictional sample dialogue. No model, speech-recognition service, or clinical escalation engine was executed.</figcaption>
+            </figure>
+          </div>
+          <p class="vera-gallery-source">Frontend captured from <a href="https://github.com/vafaei-ar/VERA-cloud/tree/b8c1939e1b6ebd0e3aec0423d163a0d0e0720679/frontend/static" target="_blank" rel="noopener noreferrer">VERA Cloud source code</a> (September 2026 snapshot). Capture instructions and research-image credits appear in the <a href="https://github.com/vafaei-ar/vafaei-ar.github.io/blob/main/assets/RESEARCH_PROVENANCE.md" target="_blank" rel="noopener noreferrer">provenance notes</a>.</p>
+        </div>
+
         <p class="demo-disclaimer"><strong>Research prototype, not a clinical service.</strong> Clinical rules and escalation language are drafts pending clinician review. Do not enter health information into this website. For real emergency symptoms, contact emergency services.</p>
       </div>
     </section>
