@@ -325,3 +325,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #f3
 .vera-gallery-source a{color:#a3f0d8;font-weight:750}
 @media(max-width:920px){.vera-gallery-intro{grid-template-columns:1fr;gap:12px}.vera-gallery-grid{grid-template-columns:1fr 1fr}.vera-shot-frame{height:330px;min-height:300px;padding:14px}}
 @media(max-width:640px){.vera-gallery{margin-top:37px}.vera-gallery-grid{grid-template-columns:1fr;gap:18px}.vera-shot-frame{height:320px;min-height:0}.vera-gallery-intro h3{font-size:1.75rem}.microscopy-evidence figcaption{font-size:.72rem}.micrograph-open{font-size:.63rem;padding:5px 9px}.vera-screenshot-card figcaption{padding:18px}}
+
+/* Crop the on-page view to the top of the real setup screen for legibility.
+   The unmodified full-height screenshot remains available when opened. */
+.vera-setup-frame img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:top}
