@@ -18,6 +18,8 @@ const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,"http://localhost").pathname;
  if(pathname==="/api/scenarios")return send(res,{scenarios:[{name:"Short recovery check-in (fictional)",base:"guided"}]});
  if(pathname==="/api/voices")return send(res,{voices:{}});
+ // The source HTML loads an AudioWorklet file as a normal script. Disable it only for this offline, non-audio screenshot.
+ if(pathname==="/static/pcm-worklet.js"){res.writeHead(200,{"Content-Type":"application/javascript"});res.end("/* Audio disabled in offline screenshot capture */");return;}
  const relative=pathname.startsWith("/static/")?pathname.slice(8):"index.html";
  const clean=path.normalize(relative).replace(/^(\.\.[/\\])+/, "");
  const target=path.join(repo,clean);
